@@ -80,7 +80,7 @@ class Kafka(object):
                 'kafka.client.jks'
             ),
             'bind_addr': hookenv.unit_private_ip(),
-            'allow_topic_creation': config['allow_topic_creation']
+            'auto_create_topics': config['auto_create_topics']
         }
 
         render(

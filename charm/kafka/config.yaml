@@ -1,5 +1,5 @@
 options:
-  allow_topic_creation:
+  auto_create_topics:
     default: false
     type: boolean
     description: |-
