@@ -35,6 +35,9 @@ applications:
   nagios:
     charm: cs:nagios
     num_units: 1
+  jmx-exporter:
+    charm: /Users/khanh/Projects/jmx-exporter/builds/jmx-exporter
 relations:
 - ['nrpe:local-monitors', 'kafka:local-monitors']
+- ['kafka', 'jmx-exporter:host-system']
 - ['nrpe', 'nagios']

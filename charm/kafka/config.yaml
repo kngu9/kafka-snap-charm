@@ -1,4 +1,9 @@
 options:
+  allow_topic_creation:
+    default: false
+    type: boolean
+    description: |-
+      Should topics be auto created when producing to non-existing topics.
   nagios_context:
     default: juju
     type: string
