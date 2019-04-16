@@ -31,8 +31,7 @@ name=UnderReplicatedPartitions',
         'name': 'active_controller_count',
         'object_name': 'kafka.controller:type=KafkaController,\
 name=ActiveControllerCount',
-        'description': 'Number of active controllers in cluster',
-        'crit': 'val != 1'
+        'description': 'Number of active controllers in cluster'
     }, {
         'name': 'offline_partitions_count',
         'object_name': 'kafka.controller:type=KafkaController,\
@@ -53,18 +52,14 @@ name=LeaderElectionRateAndTimeMs',
 name=TotalTimeMs,request=Produce',
         'attribute': '99thPercentile',
         'description': 'The top 99th percentile total time \
-in milliseconds to produce a message',
-        'warn': 'val >= {}'.format(config['nagios_producer_time_warn']),
-        'crit': 'val >= {}'.format(config['nagios_producer_time_crit'])
+in milliseconds to produce a message'
     }, {
         'name': 'consumer_fetch_time',
         'object_name': 'kafka.network:type=RequestMetrics,\
 name=TotalTimeMs,request=FetchConsumer',
         'attribute': '99thPercentile',
         'description': 'The top 99th percentile total time\
-in milliseconds for a consumer to fetch data',
-        'warn': 'val >= {}'.format(config['nagios_consumer_fetch_time_warn']),
-        'crit': 'val >= {}'.format(config['nagios_consumer_fetch_time_crit'])
+in milliseconds for a consumer to fetch data'
     }, {
         'name': 'avg_network_processor_idle',
         'object_name': 'kafka.network:name=NetworkProcessorAvgIdlePercent,\
