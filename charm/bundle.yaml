@@ -71,7 +71,7 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec><>Value
           name: kafka_server_total_bytes_in_per_sec
           help: Aggregate incoming byte rate
           type: UNTYPED
@@ -79,7 +79,7 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec, topic=(.+)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesInPerSec, topic=(.+)><>Value
           name: kafka_server_total_bytes_in_per_sec_per_topic
           help: Aggregate incoming byte rate per topic
           labels:
@@ -88,7 +88,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec><>Value
           name: kafka_server_total_bytes_out_per_sec
           help: Aggregate outgoing byte rate
           label:
@@ -96,7 +96,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec, topic=(.+)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec, topic=(.+)><>Value
           name: kafka_server_total_bytes_out_per_sec_per_topic
           help: Aggregate outgoing byte rate per topic
           labels:
@@ -105,7 +105,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=RequestsPerSec, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_requests_per_sec
           help: Request rate (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -114,7 +114,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalProduceRequestsPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalProduceRequestsPerSec><>Value
           name: kafka_server_total_produce_requests_per_sec
           help: Produce request rate
           labels:
@@ -122,7 +122,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalProduceRequestsPerSec, topic=(.+)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalProduceRequestsPerSec, topic=(.+)><>Value
           name: kafka_server_total_produce_requests_per_sec_per_topic
           help: Produce request rate per topic
           labels:
@@ -131,7 +131,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalFetchRequestsPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalFetchRequestsPerSec><>Value
           name: kafka_server_total_fetch_requests_per_sec
           help: Fetch request rate
           labels:
@@ -139,7 +139,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalFetchRequestsPerSec, topic=(.+)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalFetchRequestsPerSec, topic=(.+)><>Value
           name: kafka_server_total_fetch_requests_per_sec_per_topic
           help: Fetch request rate per topic
           labels:
@@ -148,12 +148,12 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedProduceRequestsPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedProduceRequestsPerSec><>Value
           name: kafka_server_failed_produce_requests_per_sec
           help: Produce request rate for requests that failed
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedProduceRequestsPerSec, topic=(.*)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedProduceRequestsPerSec, topic=(.*)><>Value
           name: kafka_server_failed_produce_requests_per_sec_per_topic
           help: Produce request rate for requests that failed per topic
           labels:
@@ -162,12 +162,12 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedFetchRequestsPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedFetchRequestsPerSec><>Value
           name: kafka_server_failed_fetch_requests_per_sec
           help: Fetch request rate for requests that failed
           type: UNTYPED
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedFetchRequestsPerSec, topic=(.*)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedFetchRequestsPerSec, topic=(.*)><>Value
           name: kafka_server_failed_fetch_requests_per_sec_per_topic
           help: Fetch request rate for requests that failed per topic
           labels:
@@ -176,7 +176,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.controller<type=ControllerStats, name=LeaderElectionRateAndTimeMs><>Count
+        - pattern: kafka.controller<type=ControllerStats, name=LeaderElectionRateAndTimeMs><>Value
           name: kafka_controller_leader_election_rate_time
           help: Leader election rate and latency (rate in seconds, latency|time in ms)
           labels:
@@ -184,7 +184,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
           
-        - pattern: kafka.controller<type=ControllerStats, name=UncleanLeaderElectionsPerSec><>Count
+        - pattern: kafka.controller<type=ControllerStats, name=UncleanLeaderElectionsPerSec><>Value
           name: kafka_controller_unclean_leader_elections_per_sec
           labels:
             application: {{ juju_application_name }}
@@ -216,7 +216,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: GAUGE
 
-        - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>Count
+        - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>Value
           name: kafka_server_request_handler_avg_idle_precent
           help: Average fraction of time the request handler threads are idle. Values are between 0 (all resources are used) and 1 (all resources are available)
           labels:
@@ -240,7 +240,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: GAUGE
 
-        - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_total_time_ms
           help: Total time in ms to serve the specified request (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -249,7 +249,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: COUNTER
 
-        - pattern: kafka.network<type=RequestMetrics, name=RequestQueueTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=RequestQueueTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_request_queue_time_ms
           help: Time the request waits in the request queue (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -258,7 +258,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: COUNTER
 
-        - pattern: kafka.network<type=RequestMetrics, name=LocalTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=LocalTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_local_time_ms
           help: Time the request is processed at the leader (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -267,7 +267,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: COUNTER
 
-        - pattern: kafka.network<type=RequestMetrics, name=RemoteTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=RemoteTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_remote_time_ms
           help: Time the request waits for the follower (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -276,7 +276,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: COUNTER
 
-        - pattern: kafka.network<type=RequestMetrics, name=ResponseQueueTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=ResponseQueueTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_response_queue_time_ms
           help: Time the request waits in the response queue (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -285,7 +285,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: COUNTER
 
-        - pattern: kafka.network<type=RequestMetrics, name=ResponseSendTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Count
+        - pattern: kafka.network<type=RequestMetrics, name=ResponseSendTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_response_send_time_ms
           help: Time to send the response (Produce, FetchConsumer, FetchFollower)
           labels:
@@ -294,12 +294,12 @@ applications:
             request: "$1"
           type: COUNTER
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec><>Value
           name: kafka_server_messages_in_per_sec
           help: Aggregate incoming message rate
           type: COUNTER
 
-        - pattern: kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec, topic=(.+)><>Count
+        - pattern: kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec, topic=(.+)><>Value
           name: kafka_server_messages_in_per_sec_per_topic
           help: Aggregate incoming message rate per_topic
           labels:
@@ -308,7 +308,7 @@ applications:
             topic: "$1"
           type: COUNTER
 
-        - pattern: kafka.log<type=LogFlushStats, name=LogFlushRateAndTimeMs><>Count
+        - pattern: kafka.log<type=LogFlushStats, name=LogFlushRateAndTimeMs><>Value
           name: kafka_log_log_flush_rate_time
           help: Log flush rate and time (rate in seconds, latency|time in ms)
           labels:
@@ -316,7 +316,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
           
-        - pattern: kafka.server<type=ReplicaManager, name=IsrShrinksPerSec><>Count
+        - pattern: kafka.server<type=ReplicaManager, name=IsrShrinksPerSec><>Value
           name: kafka_server_isr_shrinks_per_sec
           help: If a broker goes down, ISR for some of the partitions will shrink. When that broker is up again, ISR will be expanded once the replicas are fully caught up. Other than that, the expected value for both ISR shrink rate and expansion rate is 0
           labels:
@@ -324,7 +324,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: GAUGE
           
-        - pattern: kafka.server<type=ReplicaManager, name=IsrExpandsPerSec><>Count
+        - pattern: kafka.server<type=ReplicaManager, name=IsrExpandsPerSec><>Value
           name: kafka_server_isr_expands_per_sec
           help: When a broker is brought up after a failure, it starts catching up by reading from the leader. Once it is caught up, it gets added back to the ISR.
           labels:
@@ -341,7 +341,7 @@ applications:
             delayed_operation: "$1"
           type: GAUGE
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec><>Value
           name: kafka_server_zookeeper_disconnects_per_sec
           help: Zookeeper client is currently disconnected from the ensemble. The client lost its previous connection to a server and it is currently trying to reconnect. The session is not necessarily expired
           labels:
@@ -349,7 +349,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiresPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiresPerSec><>Value
           name: kafka_server_zookeeper_expires_per_sec
           help: The ZooKeeper session has expired. When a session expires, we can have leader changes and even a new controller. Alert if value of such events across a Kafka cluster and if the overall number is high
           labels:
@@ -357,7 +357,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSyncConnectsPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSyncConnectsPerSec><>Value
           name: kafka_server_zookeeper_sync_connects_per_sec
           help: ZooKeeper client is connected to the ensemble and ready to execute operations
           labels:
@@ -365,7 +365,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperAuthFailuresPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperAuthFailuresPerSec><>Value
           name: kafka_server_zookeeper_auth_failure_per_sec
           help: An attempt to connect to the ensemble failed because the client has not provided correct credentials
           labels:
@@ -373,7 +373,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperReadOnlyConnectsPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperReadOnlyConnectsPerSec><>Value
           name: kafka_server_zookeeper_readonly_connects_per_sec
           help: The server the client is connected to is currently LOOKING, which means that it is neither FOLLOWING nor LEADING. Consequently, the client can only read the ZooKeeper state, but not make any changes (create, delete, or set the data of znodes)
           labels:
@@ -381,7 +381,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSaslAuthenticationsPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSaslAuthenticationsPerSec><>Value
           name: kafka_server_zookeeper_sasl_auth_per_sec
           help: Client has successfully authenticated
           labels:
@@ -389,7 +389,7 @@ applications:
             unit: {{ juju_unit_name }}
           type: UNTYPED
 
-        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiredPerSec><>Count
+        - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiredPerSec><>Value
           name: kafka_server_zookeeper_expired_per_sec
           help: The ZooKeeper session has expired. When a session expires, we can have leader changes and even a new controller. Alert if value of such events across a Kafka cluster and if the overall number is high
           labels:
