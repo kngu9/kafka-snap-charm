@@ -51,7 +51,7 @@ applications:
           name: kafka_server_under_replicated_partitions
           help: Number of under-replicated partitions (| ISR | < | all replicas |). Alert if value is greater than 0
           type: GAUGE
-          label:
+          labels:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
 
@@ -59,7 +59,7 @@ applications:
           name: kafka_controller_offline_partitions_count
           help: Number of partitions that do not have an active leader and are hence not writable or readable. Alert if value is greater than 0
           type: GAUGE
-          label:
+          labels:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
 
@@ -67,7 +67,7 @@ applications:
           name: kafka_controller_active_controller_count
           help: Number of active controllers in the cluster. Alert if the aggregated sum across all brokers in the cluster is anything other than 1 (there should be exactly one controller per cluster)
           type: GAUGE
-          label:
+          labels:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
 
@@ -75,7 +75,7 @@ applications:
           name: kafka_server_total_bytes_in_per_sec
           help: Aggregate incoming byte rate
           type: UNTYPED
-          label:
+          labels:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
 
@@ -95,6 +95,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=BrokerTopicMetrics, name=BytesOutPerSec, topic=(.+)><>Value
           name: kafka_server_total_bytes_out_per_sec_per_topic
@@ -121,6 +124,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalProduceRequestsPerSec, topic=(.+)><>Value
           name: kafka_server_total_produce_requests_per_sec_per_topic
@@ -138,6 +144,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=BrokerTopicMetrics, name=TotalFetchRequestsPerSec, topic=(.+)><>Value
           name: kafka_server_total_fetch_requests_per_sec_per_topic
@@ -151,6 +160,9 @@ applications:
         - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedProduceRequestsPerSec><>Value
           name: kafka_server_failed_produce_requests_per_sec
           help: Produce request rate for requests that failed
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           type: UNTYPED
 
         - pattern: kafka.server<type=BrokerTopicMetrics, name=FailedProduceRequestsPerSec, topic=(.*)><>Value
@@ -183,6 +195,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           
         - pattern: kafka.controller<type=ControllerStats, name=UncleanLeaderElectionsPerSec><>Value
           name: kafka_controller_unclean_leader_elections_per_sec
@@ -191,6 +206,9 @@ applications:
             unit: {{ juju_unit_name }}
           help: Unclean leader election rate
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=ReplicaManager, name=PartitionCount><>Value
           name: kafka_server_partition_count
@@ -199,6 +217,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=ReplicaManager, name=LeaderCount><>Value
           name: kafka_server_leader_count
@@ -207,6 +228,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=ReplicaFetcherManager, name=MaxLag, clientId=Replica><>Value
           name: kafka_server_max_lag_in_replica
@@ -215,6 +239,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>Value
           name: kafka_server_request_handler_avg_idle_precent
@@ -223,6 +250,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.network<type=SocketServer, name=NetworkProcessorAvgIdlePercent><>Value
           name: kafka_network_network_processor_avg_idle_precent
@@ -231,6 +261,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.network<type=RequestChannel, name=RequestQueueSize><>Value
           name: kafka_network_request_queue_size
@@ -239,6 +272,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.network<type=RequestMetrics, name=TotalTimeMs, request=(Produce|FetchConsumer|FetchFollower)><>Value
           name: kafka_network_total_time_ms
@@ -292,11 +328,16 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
             request: "$1"
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           type: COUNTER
 
         - pattern: kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec><>Value
           name: kafka_server_messages_in_per_sec
           help: Aggregate incoming message rate
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           type: COUNTER
 
         - pattern: kafka.server<type=BrokerTopicMetrics, name=MessagesInPerSec, topic=(.+)><>Value
@@ -306,6 +347,8 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
             topic: "$1"
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           type: COUNTER
 
         - pattern: kafka.log<type=LogFlushStats, name=LogFlushRateAndTimeMs><>Value
@@ -315,6 +358,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           
         - pattern: kafka.server<type=ReplicaManager, name=IsrShrinksPerSec><>Value
           name: kafka_server_isr_shrinks_per_sec
@@ -323,6 +369,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           
         - pattern: kafka.server<type=ReplicaManager, name=IsrExpandsPerSec><>Value
           name: kafka_server_isr_expands_per_sec
@@ -331,6 +380,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: GAUGE
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=DelayedOperationPurgatory, name=PurgatorySize, delayedOperation=(Produce|Fetch)><>Value
           name: kafka_server_purgatory_size
@@ -339,6 +391,8 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
             delayed_operation: "$1"
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
           type: GAUGE
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperDisconnectsPerSec><>Value
@@ -348,6 +402,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiresPerSec><>Value
           name: kafka_server_zookeeper_expires_per_sec
@@ -356,6 +413,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSyncConnectsPerSec><>Value
           name: kafka_server_zookeeper_sync_connects_per_sec
@@ -364,6 +424,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperAuthFailuresPerSec><>Value
           name: kafka_server_zookeeper_auth_failure_per_sec
@@ -372,6 +435,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperReadOnlyConnectsPerSec><>Value
           name: kafka_server_zookeeper_readonly_connects_per_sec
@@ -380,6 +446,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperSaslAuthenticationsPerSec><>Value
           name: kafka_server_zookeeper_sasl_auth_per_sec
@@ -388,6 +457,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
 
         - pattern: kafka.server<type=SessionExpireListener, name=ZooKeeperExpiredPerSec><>Value
           name: kafka_server_zookeeper_expired_per_sec
@@ -396,6 +468,9 @@ applications:
             application: {{ juju_application_name }}
             unit: {{ juju_unit_name }}
           type: UNTYPED
+          labels:
+            application: {{ juju_application_name }}
+            unit: {{ juju_unit_name }}
   prometheus:
     charm: cs:prometheus2-8
     num_units: 1
