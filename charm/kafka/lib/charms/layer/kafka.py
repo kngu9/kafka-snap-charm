@@ -21,7 +21,7 @@ import socket
 from pathlib import Path
 from base64 import b64encode
 
-from charmhelpers.core import hookenv, host
+from charmhelpers.core import hookenv, host, unitdata
 from charmhelpers.core.templating import render
 
 from charms.reactive.relations import RelationBase
@@ -61,8 +61,12 @@ class Kafka(object):
 
         config = hookenv.config()
 
+        broker_id = unitdata.kv().get('kafka.broker_id')
+        if not broker_id:
+            broker_id = os.environ['JUJU_UNIT_NAME'].split('/', 1)[1]
+
         context = {
-            'broker_id': os.environ['JUJU_UNIT_NAME'].split('/', 1)[1],
+            'broker_id': broker_id,
             'port': KAFKA_PORT,
             'zookeeper_connection_string': zk_connect,
             'log_dirs': log_dir,

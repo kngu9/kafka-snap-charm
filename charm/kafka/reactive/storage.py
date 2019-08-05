@@ -16,6 +16,7 @@ def storage_attach():
         hookenv.status_set('blocked', 'cannot locate attached storage')
         return
     storageid = storageids[0]
+    unitdata.kv().set('kafka.broker_id', storageid)
 
     mount = hookenv.storage_get('location', storageid)
     if not mount:
@@ -35,6 +36,8 @@ def storage_attach():
 @hook('logs-storage-detaching')
 def storage_detaching():
     unitdata.kv().unset('kafka.storage.log_dir')
+    unitdata.kv().unset('kafka.broker_id')
+
     Kafka().stop()
 
     log('log storage detatched, reconfiguring to use temporary storage')
