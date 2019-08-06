@@ -18,8 +18,10 @@ def create_or_get_brokerid(log_dir):
         with open(broker_path, 'r') as f:
             try:
                 broker_id = int(f.read().replace('\n', ''))
-            except ValueError as ex:
+            except ValueError:
                 hookenv.log('{}'.format('invalid broker id format'))
+                hookenv.status_set(
+                    'blocked', 'unable to validate broker id format')
     else:
         os.makedirs(log_dir)
 
