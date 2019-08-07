@@ -62,7 +62,10 @@ def configure_kafka(zk):
     data_changed('kafka.storage.log_dir', log_dir)
     kafka = Kafka()
     zks = zk.zookeepers()
-    kafka.install(zk_units=zks, log_dir=log_dir)
+    if log_dir:
+        kafka.install(zk_units=zks, log_dir=log_dir)
+    else:
+        kafka.install(zk_units=zks)
     kafka.open_ports()
     set_state('kafka.started')
     hookenv.status_set('active', 'ready')
