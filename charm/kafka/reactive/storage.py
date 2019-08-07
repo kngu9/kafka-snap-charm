@@ -12,7 +12,7 @@ from charmhelpers.core.hookenv import log
 def init_brokerid(log_dir):
     broker_path = os.path.join(log_dir, '.broker_id')
     storageids = hookenv.storage_list('logs')
-    broker_id = storageids[0].split('/')[1]
+    broker_id = hookenv.local_unit().split('/', 1)[1]
 
     if not os.path.exists(broker_path):
         os.makedirs(log_dir)

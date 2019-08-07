@@ -62,12 +62,11 @@ class Kafka(object):
         config = hookenv.config()
 
         broker_id = os.environ['JUJU_UNIT_NAME'].split('/', 1)[1]
-
         storageids = hookenv.storage_list('logs')
         if storageids:
             storageid = storageids[0]
             mount = hookenv.storage_get('location', storageids[0])
-            
+
             if mount:
                 broker_path = os.path.join(log_dir, '.broker_id')
 
@@ -79,6 +78,7 @@ class Kafka(object):
                             hookenv.log('{}'.format('invalid broker id format'))
                             hookenv.status_set(
                                 'blocked', 'unable to validate broker id format')
+                            raise
 
         context = {
             'broker_id': broker_id,
