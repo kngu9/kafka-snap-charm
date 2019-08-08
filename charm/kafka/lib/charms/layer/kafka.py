@@ -21,7 +21,7 @@ import socket
 from pathlib import Path
 from base64 import b64encode
 
-from charmhelpers.core import hookenv, host, unitdata
+from charmhelpers.core import hookenv, host
 from charmhelpers.core.templating import render
 
 from charms.reactive.relations import RelationBase
@@ -61,10 +61,9 @@ class Kafka(object):
 
         config = hookenv.config()
 
-        broker_id = os.environ['JUJU_UNIT_NAME'].split('/', 1)[1]
+        broker_id = hookenv.local_unit().split('/', 1)[1]
         storageids = hookenv.storage_list('logs')
         if storageids:
-            storageid = storageids[0]
             mount = hookenv.storage_get('location', storageids[0])
 
             if mount:
@@ -75,9 +74,11 @@ class Kafka(object):
                         try:
                             broker_id = int(f.read().strip())
                         except ValueError:
-                            hookenv.log('{}'.format('invalid broker id format'))
+                            hookenv.log('{}'.format(
+                                'invalid broker id format'))
                             hookenv.status_set(
-                                'blocked', 'unable to validate broker id format')
+                                'blocked',
+                                'unable to validate broker id format')
                             raise
 
         context = {

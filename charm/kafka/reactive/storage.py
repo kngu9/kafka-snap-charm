@@ -11,12 +11,11 @@ from charmhelpers.core.hookenv import log
 
 def init_brokerid(log_dir):
     broker_path = os.path.join(log_dir, '.broker_id')
-    storageids = hookenv.storage_list('logs')
     broker_id = hookenv.local_unit().split('/', 1)[1]
 
     if not os.path.exists(broker_path):
         os.makedirs(log_dir)
-        
+
         with open(broker_path, 'w+') as f:
             f.write(broker_id)
 
@@ -49,7 +48,6 @@ def storage_attach():
 @hook('logs-storage-detaching')
 def storage_detaching():
     unitdata.kv().unset('kafka.storage.log_dir')
-    unitdata.kv().unset('kafka.broker_id')
 
     Kafka().stop()
 
