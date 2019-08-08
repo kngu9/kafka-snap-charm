@@ -38,7 +38,7 @@ def storage_attach():
     hookenv.log('Kafka logs storage attached at {}'.format(log_dir))
 
     init_brokerid(log_dir)
-
+    set_flag('kafka.storage.logs.attached')
     # Stop Kafka; removing the kafka.started state will trigger
     # a reconfigure if/when it's ready
     remove_state('kafka.configured')
@@ -57,3 +57,4 @@ def storage_detaching():
     set_flag('kafka.force-reconfigure')
 
     remove_state('kafka.started')
+    remove_state('kafka.storage.logs.attached')

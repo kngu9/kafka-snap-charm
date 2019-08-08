@@ -48,12 +48,19 @@ def upgrade_charm():
 def waiting_for_certificates():
     hookenv.status_set('waiting', 'waiting for easyrsa relation')
 
+@when_not(
+    'kafka.storage.logs.attached'
+)
+@when('snap.installed.kafka')
+def waiting_for_storage_attach():
+    hookenv.status_set('waiting', 'waiting for storage attachment')
 
 @when(
     'snap.installed.kafka',
     'zookeeper.ready',
     'kafka.ca.keystore.saved',
-    'kafka.server.keystore.saved'
+    'kafka.server.keystore.saved',
+    'kafka.storage.logs.attached'
 )
 @when_not('kafka.started')
 def configure_kafka(zk):
