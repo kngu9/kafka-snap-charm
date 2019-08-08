@@ -52,6 +52,12 @@ class Kafka(object):
         Generates client-ssl.properties and server.properties with the current
         system state.
         '''
+        if not self._storage_exists():
+            hookenv.status_set(
+                'blocked',
+                'cannot start kafka service without storage attached')
+            return
+
         zks = []
         for unit in zk_units or self.get_zks():
             ip = resolve_private_address(unit['host'])
@@ -131,13 +137,23 @@ class Kafka(object):
         '''
         Restarts the Kafka service.
         '''
-        host.service_restart(KAFKA_SERVICE)
+        if self._storage_exists():
+            host.service_restart(KAFKA_SERVICE)
+        else:
+            hookenv.status_set(
+                'blocked',
+                'cannot start kafka service without storage attached')
 
     def start(self):
         '''
         Starts the Kafka service.
         '''
-        host.service_reload(KAFKA_SERVICE)
+        if self._storage_exists():
+            host.service_reload(KAFKA_SERVICE)
+        else:
+            hookenv.status_set(
+                'blocked',
+                'cannot start kafka service without storage attached')
 
     def stop(self):
         '''
@@ -163,6 +179,10 @@ class Kafka(object):
             return zk.zookeepers()
         else:
             return []
+
+    def _storage_exists(self):
+        storageids = hookenv.storage_list('logs')
+        return storageids is not None
 
     def version(self):
         '''

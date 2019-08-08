@@ -57,4 +57,3 @@ def storage_detaching():
     set_flag('kafka.force-reconfigure')
 
     remove_state('kafka.started')
-    remove_state('kafka.storage.logs.attached')
