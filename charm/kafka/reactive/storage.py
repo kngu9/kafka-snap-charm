@@ -14,7 +14,7 @@ def init_brokerid(log_dir):
     broker_id = hookenv.local_unit().split('/', 1)[1]
 
     if not os.path.exists(broker_path):
-        os.makedirs(log_dir)
+        os.makedirs(log_dir, exist_ok=True)
 
         with open(broker_path, 'w+') as f:
             f.write(broker_id)

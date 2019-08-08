@@ -61,7 +61,7 @@ class Kafka(object):
 
         config = hookenv.config()
 
-        broker_id = hookenv.local_unit().split('/', 1)[1]
+        broker_id = None
         storageids = hookenv.storage_list('logs')
         if storageids:
             mount = hookenv.storage_get('location', storageids[0])
@@ -80,6 +80,12 @@ class Kafka(object):
                                 'blocked',
                                 'unable to validate broker id format')
                             raise
+
+        if not broker_id:
+            hookenv.status_set(
+                'blocked',
+                'unable to get broker id')
+            return
 
         context = {
             'broker_id': broker_id,
@@ -163,10 +169,6 @@ class Kafka(object):
             return zk.zookeepers()
         else:
             return []
-
-    def _storage_exists(self):
-        storageids = hookenv.storage_list('logs')
-        return storageids is not None
 
     def version(self):
         '''
